@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+<item android:title="My Trips">
+        <menu>
+        <item android:id="@+id/pasttrips"
+            android:title="Past Trips"
+            android:icon="@drawable/logo"/>
+
+        <item android:id="@+id/uptrips"
+            android:title="Upcoming Trips"
+            android:icon="@drawable/logo"/>
+        </menu>
+</item>
+    <item android:title="Other">
+
+        <menu>
+            <item android:title="Profile"
+                android:id="@+id/profile"
+                android:icon="@drawable/proicon"/>
+
+            <item android:title="About"
+                android:id="@+id/about"
+                android:icon="@drawable/about" />
+
+            <item android:title="Sign Out"
+                android:id="@+id/signout"
+                android:icon="@drawable/signout"/>
+
+        </menu>
+
+    </item>
+
+</menu>

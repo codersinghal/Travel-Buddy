@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Options Menu for Search-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/searchbtn"
+        android:title="Search"
+        app:showAsAction="always|collapseActionView" />
+</menu>
