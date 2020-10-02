@@ -13,4 +13,7 @@
     <string name="places_api">AIzaSyDYoQybddM6c-Daz0bHVe7h2tuyzxHmW1k</string>
     <string name="Open">open</string>
     <string name="Close">close</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

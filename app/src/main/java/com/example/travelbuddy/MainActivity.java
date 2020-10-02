@@ -80,7 +80,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
     private NavigationView nv;
-
+    private double latitude;
+    private double longitude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,6 +169,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     if (lastmarker != null)
                         lastmarker.remove();
                     mMap.setMyLocationEnabled(true);
+                   // latitude=arg0.getLatitude();
+                    //longitude=arg0.getLongitude();
                     lastmarker = mMap.addMarker(new MarkerOptions().position(new LatLng(arg0.getLatitude(), arg0.getLongitude())).title("It's Me!"));
                 }
             });
@@ -213,6 +216,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
             Address address = addressList.get(0);
             LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+            latitude=address.getLatitude();
+            longitude=address.getLongitude();
             mMap.clear();
             mMap.addMarker(new MarkerOptions().position(latLng).title(location));
             mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
@@ -327,6 +332,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         // If you don't have res/menu, just create a directory named "menu" inside res
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+    public void open_sheet(View view)
+    {
+        BottomSheet bottomSheetFragment = new BottomSheet(this);
+        bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
+    }
+
+    public double get_curr_lat()
+    {
+        return latitude;
+    }
+    public double get_curr_long()
+    {
+        return longitude;
     }
 
 
