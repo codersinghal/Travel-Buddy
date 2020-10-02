@@ -33,9 +33,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-//import com.google.android.gms.location.places.Places;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -50,18 +47,9 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -69,6 +57,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     private static final int AUTOCOMPLETE_REQUEST_CODE = 73;
+    private static final int REQUEST_LOCATION = 1;
     private TextView check;
     private boolean flag = false;
     private GoogleMap mMap;
@@ -82,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private NavigationView nv;
     private double latitude;
     private double longitude;
+    LocationManager locationManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,7 +97,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (mMap != null) {
                     if (locationButton != null)
                         locationButton.callOnClick();
+                    if (ActivityCompat.checkSelfPermission(
+                            MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                            MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+                    } else {
+                        Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                        if (locationGPS != null) {
+                            latitude = locationGPS.getLatitude();
+                            longitude = locationGPS.getLongitude();
 
+                        }
+                    }
                 }
             }
         });
@@ -131,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
                         flag = true;
-                        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+                        locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
                         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                             Intent intent1 = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                             startActivity(intent1);
@@ -169,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     if (lastmarker != null)
                         lastmarker.remove();
                     mMap.setMyLocationEnabled(true);
-                   // latitude=arg0.getLatitude();
+                    // latitude=arg0.getLatitude();
                     //longitude=arg0.getLongitude();
                     lastmarker = mMap.addMarker(new MarkerOptions().position(new LatLng(arg0.getLatitude(), arg0.getLongitude())).title("It's Me!"));
                 }
@@ -192,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 
         } else {
-            LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+            locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
             if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 Intent intent1 = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 startActivity(intent1);
@@ -216,8 +218,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
             Address address = addressList.get(0);
             LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-            latitude=address.getLatitude();
-            longitude=address.getLongitude();
+            latitude = address.getLatitude();
+            longitude = address.getLongitude();
             mMap.clear();
             mMap.addMarker(new MarkerOptions().position(latLng).title(location));
             mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
@@ -333,18 +335,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-    public void open_sheet(View view)
-    {
+
+    public void open_sheet(View view) {
         BottomSheet bottomSheetFragment = new BottomSheet(this);
         bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
     }
 
-    public double get_curr_lat()
-    {
+    public double get_curr_lat() {
         return latitude;
     }
-    public double get_curr_long()
-    {
+
+    public double get_curr_long() {
         return longitude;
     }
 

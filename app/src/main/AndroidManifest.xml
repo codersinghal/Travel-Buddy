@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PastTripItem"></activity>
+        <activity android:name=".Near_by_places"></activity>
+        <activity android:name=".PastTripItem" />
         <activity android:name=".PastTripsActivity" />
         <activity android:name=".ProfilePage" />
         <activity android:name=".SignUpActivity" />

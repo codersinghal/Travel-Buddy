@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="160dp">
+
+    <RelativeLayout
+        android:layout_width="295dp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/place_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="20dp"
+            android:maxLines="2"
+            android:text="Highway Plaza"
+            android:textSize="20dp"></TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/vicinity"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="14dp"
+            android:maxLines="2"
+            android:text="Mathura,Uttar Pradesh,India"
+            android:textSize="12dp"></TextView>
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="120dp"
+            android:progressTint="#f7c307"
+            android:isIndicator="true"
+            android:max="5"
+            android:scaleX=".4"
+            android:scaleY=".5"
+            android:transformPivotX="0dp"
+            android:transformPivotY="0dp"></androidx.appcompat.widget.AppCompatRatingBar>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/open_now"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_toRightOf="@+id/rating_bar"
+            android:maxLines="1"
+            android:text="Closed"></TextView>
+
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/movie"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/place_img"
+        ></ImageView>
+
+</LinearLayout>
