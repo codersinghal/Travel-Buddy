@@ -176,6 +176,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     lastmarker = mMap.addMarker(new MarkerOptions().position(new LatLng(arg0.getLatitude(), arg0.getLongitude())).title("It's Me!"));
                 }
             });
+            mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                @Override
+                public void onMapClick(LatLng latLng) {
+                    latitude=latLng.latitude;
+                    longitude=latLng.longitude;
+                    mMap.addMarker(new MarkerOptions().position(latLng).title("Destination"));
+                }
+            });
         }
 
     }

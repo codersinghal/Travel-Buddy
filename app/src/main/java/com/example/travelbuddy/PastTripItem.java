@@ -1,17 +1,25 @@
 package com.example.travelbuddy;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,7 +42,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.iceteck.silicompressorr.FileUtils;
+import com.iceteck.silicompressorr.SiliCompressor;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -57,6 +68,7 @@ public class PastTripItem extends AppCompatActivity {
     final int PICK_IMAGE_REQUEST = 71;
     private EditText src_dest, stdate, endate, review, expenditure;
     private ArrayList<Uri> filePath;
+    private ValueEventListener valueListener;
     FirebaseStorage storage;
     StorageReference storageReference;
     @Override
@@ -69,6 +81,7 @@ public class PastTripItem extends AppCompatActivity {
         review = findViewById(R.id.review);
         rv_img = findViewById(R.id.recyclerviewimg);
         expenditure = findViewById(R.id.expenditure);
+        Toast.makeText(PastTripItem.this,"on create called",Toast.LENGTH_SHORT).show();
         LinearLayoutManager layoutManager = new LinearLayoutManager(PastTripItem.this, LinearLayoutManager.HORIZONTAL, false);
         SnapHelper snapHelper = new PagerSnapHelper();
         rv_img.setLayoutManager(layoutManager);
@@ -84,7 +97,7 @@ public class PastTripItem extends AppCompatActivity {
             obj = intent.getSerializableExtra("data");
         if (obj != null) {
             ptm = (PastTripsModel) obj;
-            src_dest.setText(ptm.getSrc()+"  To  "+ptm.getDest());
+            src_dest.setText(ptm.getSrc()+" To "+ptm.getDest());
             stdate.setText(ptm.getStdate());
             endate.setText(ptm.getEndate());
             review.setText(ptm.getReview());
@@ -96,7 +109,7 @@ public class PastTripItem extends AppCompatActivity {
             auth = FirebaseAuth.getInstance();
             user = auth.getCurrentUser();
             mRef=FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("past_pics").child(ptm.getUid());
-            mRef.addValueEventListener(new ValueEventListener() {
+            valueListener=mRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     ArrayList<String> send=new ArrayList<>();
@@ -142,19 +155,25 @@ public class PastTripItem extends AppCompatActivity {
             user = auth.getCurrentUser();
             mDatabase = FirebaseDatabase.getInstance().getReference().child(user.getUid()).child("past_trips");
             String srcs[]=(src_dest.getText()).toString().split(" To ",-2);
-            PastTripsModel addobj = new PastTripsModel(srcs[0], srcs[1], review.getText().toString(), stdate.getText().toString(), endate.getText().toString(), expenditure.getText().toString());
+            PastTripsModel addobj = new PastTripsModel(srcs[0].trim(), srcs[1].trim(), review.getText().toString(), stdate.getText().toString(), endate.getText().toString(), expenditure.getText().toString());
             if (obj == null) {
                 String this_item_uid = mDatabase.push().getKey();
+                addobj.setUID(this_item_uid);
                 mDatabase.child(this_item_uid).setValue(addobj);
                 mRef=FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("past_pics").child(this_item_uid);
                 uploadImage(this_item_uid);
             } else {
                 String this_item_uid = ptm.getUid();
+                mRef=FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("past_pics").child(ptm.getUid());
+                if(valueListener!=null)
+                    mRef.removeEventListener(valueListener);
                 uploadImage(this_item_uid);
+                addobj.setUID(ptm.getUid());
                 mDatabase.child(ptm.getUid()).setValue(addobj);
             }
         }
         if (id == R.id.addimg) {
+            if(checkPermissionREAD_EXTERNAL_STORAGE(this))
             chooseImage();
         }
         return super.onOptionsItemSelected(item);
@@ -238,9 +257,11 @@ public class PastTripItem extends AppCompatActivity {
             mRef=FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("past_pics").child(this_item_uid);
             StorageReference ref;
             for (Uri url : filePath) {
-                ref = storageReference.child(user.getUid() + "/past_trips/" + this_item_uid+"/"+url);
+                File file=new File(SiliCompressor.with(this).compress(FileUtils.getPath(this,url),new File(this.getCacheDir(),"temp")));
+                Uri uri=Uri.fromFile(file);
+                ref = storageReference.child(user.getUid() + "/past_trips/" + this_item_uid+"/"+uri);
                 final StorageReference finalRef = ref;
-                ref.putFile(url)
+                ref.putFile(uri)
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -253,6 +274,7 @@ public class PastTripItem extends AppCompatActivity {
                                             url = new URL(uri.toString());
                                             System.out.println(url);
                                             mRef.push().setValue(url.toString());
+                                            file.delete();
 
                                         } catch (MalformedURLException e) {
                                             e.printStackTrace();
@@ -273,10 +295,9 @@ public class PastTripItem extends AppCompatActivity {
                         .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                                double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
-                                        .getTotalByteCount());
-                                if(progress==100.0)
-                                progressDialog.setMessage("Saved " + (int) progress + "%");
+                                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot
+                                        .getTotalByteCount();
+                                progressDialog.setMessage("Saving " + (int) progress + "%");
                             }
                         });
             }
@@ -285,4 +306,80 @@ public class PastTripItem extends AppCompatActivity {
 
     }
 
+//    private Uri compressFile(Uri url) {
+//        if(url!=null)
+//        {
+//            System.out.println(url);
+//            File file=new File(SiliCompressor.with(this).compress(FileUtils.getPath(this,url),new File(this.getCacheDir(),"temp")));
+//            Uri uri=Uri.fromFile(file);
+//            return uri;
+//        }
+//        return null;
+//    }
+    public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
+
+    public boolean checkPermissionREAD_EXTERNAL_STORAGE(
+            final Context context) {
+        int currentAPIVersion = Build.VERSION.SDK_INT;
+        if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(context,
+                    Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(
+                        (Activity) context,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    showDialog("External storage", context,
+                            Manifest.permission.READ_EXTERNAL_STORAGE);
+
+                } else {
+                    ActivityCompat
+                            .requestPermissions(
+                                    (Activity) context,
+                                    new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
+                                    MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                }
+                return false;
+            } else {
+                return true;
+            }
+
+        } else {
+            return true;
+        }
+    }
+
+
+    public void showDialog(final String msg, final Context context,
+                           final String permission) {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+        alertBuilder.setCancelable(true);
+        alertBuilder.setTitle("Permission necessary");
+        alertBuilder.setMessage(msg + " permission is necessary");
+        alertBuilder.setPositiveButton(android.R.string.yes,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        ActivityCompat.requestPermissions((Activity) context,
+                                new String[] { permission },
+                                MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                    }
+                });
+        AlertDialog alert = alertBuilder.create();
+        alert.show();
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // do your stuff
+                } else {
+                    Toast.makeText(PastTripItem.this, "GET_ACCOUNTS Denied",
+                            Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions,
+                        grantResults);
+        }
+    }
 }

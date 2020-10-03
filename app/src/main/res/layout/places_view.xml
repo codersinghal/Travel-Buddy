@@ -4,7 +4,7 @@
     android:layout_height="160dp">
 
     <RelativeLayout
-        android:layout_width="295dp"
+        android:layout_width="240dp"
         android:layout_height="match_parent">
 
         <TextView
@@ -15,36 +15,36 @@
             android:layout_marginTop="20dp"
             android:maxLines="2"
             android:text="Highway Plaza"
-            android:textSize="20dp"></TextView>
+            android:textSize="17dp"></TextView>
 
         <TextView
-            android:layout_width="wrap_content"
             android:id="@+id/vicinity"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="14dp"
-            android:maxLines="2"
+            android:maxLines="3"
             android:text="Mathura,Uttar Pradesh,India"
             android:textSize="12dp"></TextView>
 
         <androidx.appcompat.widget.AppCompatRatingBar
             android:id="@+id/rating_bar"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="14dp"
             android:layout_marginTop="120dp"
-            android:progressTint="#f7c307"
             android:isIndicator="true"
             android:max="5"
+            android:progressTint="#f7c307"
             android:scaleX=".4"
             android:scaleY=".5"
             android:transformPivotX="0dp"
             android:transformPivotY="0dp"></androidx.appcompat.widget.AppCompatRatingBar>
 
         <TextView
-            android:layout_width="wrap_content"
             android:id="@+id/open_now"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="20dp"
@@ -54,8 +54,9 @@
 
     </RelativeLayout>
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
         android:src="@drawable/movie"
         android:layout_gravity="center_vertical"
         android:id="@+id/place_img"

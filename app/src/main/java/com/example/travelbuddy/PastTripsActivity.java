@@ -55,7 +55,7 @@ public class PastTripsActivity extends AppCompatActivity {
                     trips_list.clear();
                     for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
                         PastTripsModel l = npsnapshot.getValue(PastTripsModel.class);
-                        l.setUID(npsnapshot.getKey());
+                        //l.setUID(npsnapshot.getKey());
                         trips_list.add(l);
                     }
                     mAdapter = new PastTripsAdapter(PastTripsActivity.this, trips_list,findViewById(R.id.relLayout1));
@@ -78,7 +78,6 @@ public class PastTripsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(PastTripsActivity.this,PastTripItem.class);
-
                 startActivity(intent);
             }
         });

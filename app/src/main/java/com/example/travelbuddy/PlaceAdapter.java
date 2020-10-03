@@ -1,6 +1,8 @@
 package com.example.travelbuddy;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,19 +41,26 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
 
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull PlaceAdapter.MyViewHolder holder, int position) {
        // Picasso.with(c).load(urls.get(position)).into(holder.imageView);
         holder.name.setText(data.get(position).getName());
         holder.vicinity.setText(data.get(position).getVicinity());
         if(data.get(position).getRating()==0.0)
-            holder.rat_bar.setRating(3.0f);
+            holder.rat_bar.setRating(1.5f);
         else
-        holder.rat_bar.setRating(data.get(position).getRating().floatValue());
-        if(data.get(position).isOpen())
-        holder.status.setText("Open");
-        else
-            holder.status.setText("Close");
+        holder.rat_bar.setRating((data.get(position).getRating().floatValue())*3.0f/5);
+        if(data.get(position).isOpen()) {
+
+            holder.status.setTextColor(Color.parseColor("#53f53d"));
+            holder.status.setText("Open Now");
+        }
+        else {
+
+            holder.status.setTextColor(Color.parseColor("#f20511"));
+            holder.status.setText("Closed");
+        }
         if(data.get(position).getPhotoUrl()==null)
             Picasso.with(c).load(R.drawable.tourist).into(holder.place_img);
         else
