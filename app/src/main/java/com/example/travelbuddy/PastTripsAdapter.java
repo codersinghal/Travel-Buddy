@@ -103,7 +103,7 @@ public class PastTripsAdapter extends RecyclerView.Adapter<PastTripsAdapter.MyVi
     private void undoDelete() {
 
         mDatabase= FirebaseDatabase.getInstance().getReference().child(user.getUid()).child("past_trips");
-        mDatabase.push().setValue(mRecentlyDeletedItem);
+        mDatabase.child(mRecentlyDeletedItem.getUid()).setValue(mRecentlyDeletedItem);
         list.add(mRecentlyDeletedItemPosition,
                 mRecentlyDeletedItem);
         //notifyItemInserted(mRecentlyDeletedItemPosition);

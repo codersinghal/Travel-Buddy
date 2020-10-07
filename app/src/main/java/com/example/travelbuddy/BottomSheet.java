@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.travelbuddy.places_model.PlacesIntentData;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 
@@ -34,7 +35,7 @@ public class BottomSheet extends BottomSheetDialogFragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    ImageView atm, restaurant, doctor, movie, mall, tourist;
+    ImageView atm, restaurant, doctor, movie, mall, tourist,weather,airport,gas;
   //  private OnFragmentInteractionListener mListener;
 
     public BottomSheet() {
@@ -84,6 +85,9 @@ public class BottomSheet extends BottomSheetDialogFragment {
         movie=rootview.findViewById(R.id.movies);
         mall=rootview.findViewById(R.id.malls);
         tourist=rootview.findViewById(R.id.tourist);
+        weather=rootview.findViewById(R.id.weather);
+        airport=rootview.findViewById(R.id.airports);
+        gas=rootview.findViewById(R.id.gas_stations);
         final PlacesIntentData dataobj=new PlacesIntentData(obj.get_curr_lat(),obj.get_curr_long(),null);
         atm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +143,33 @@ public class BottomSheet extends BottomSheetDialogFragment {
                 startActivity(intent);
             }
         });
+        airport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(),Near_by_places.class);
+                dataobj.setPlace_type("airport");
+                intent.putExtra("data",dataobj);
+                startActivity(intent);
+            }
+        });
+        gas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(),Near_by_places.class);
+                dataobj.setPlace_type("gas_station");
+                intent.putExtra("data",dataobj);
+                startActivity(intent);
+            }
+        });
+        weather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(),Weather.class);
+                intent.putExtra("data",new LatLng(dataobj.getLatitude(),dataobj.getLongitude()));
+                startActivity(intent);
+            }
+        });
+
         return rootview;
     }
 
