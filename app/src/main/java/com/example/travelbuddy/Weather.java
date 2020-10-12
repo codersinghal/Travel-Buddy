@@ -1,7 +1,9 @@
 package com.example.travelbuddy;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.agrawalsuneet.dotsloader.loaders.CircularDotsLoader;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -31,9 +34,15 @@ public class Weather extends AppCompatActivity {
     private ArrayList<WeatherModel> list;
     private ListView lv;
     private TextView loc,currtemp,currdesc,currdate,min_max_temp;
+    private ProgressDialog progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        progressBar = new ProgressDialog(this);
+        progressBar.setCancelable(true);
+        progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressBar.show();
         setContentView(R.layout.activity_weather);
         lv=findViewById(R.id.weather_list);
         loc=findViewById(R.id.w_loc);
@@ -69,6 +78,7 @@ public class Weather extends AppCompatActivity {
                 parseData(result);
                 WeatherAdapter adapter=new WeatherAdapter(Weather.this,list);
                 lv.setAdapter(adapter);
+                progressBar.dismiss();
             } catch (JSONException e) {
                 e.printStackTrace();
             }

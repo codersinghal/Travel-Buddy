@@ -1,0 +1,51 @@
+placeId,city,state,type
+1,manali,himachal,adventure
+2,rohtang,himachal,snow
+3,shimla,himachal,hills
+4,khajjiar,himachal,plains
+5,dharamshala,himachal,nature
+6,kufri,himachal,snow|nature
+7,kasauli,himachal,hills
+8,mcleod ganj,himachal,hills
+9,bir billing,himachal,adventure
+10,chail,himachal,honeymoon|adventure
+11,kullu,himachal,adventure|wildlife
+12,dalhousie,himachal,nature|hills
+13,malana,himachal,hills
+14,jaipur,rajasthan,historical
+15,udaipur,rajasthan,lakes|palaces
+16,jaiselmer,rajasthan,palaces|historical
+17,jodhpur,rajasthan,historical|palaces
+18,pushkar,rajasthan,lakes|market
+19,ranthambore,rajasthan,wildlife
+20,bikaner,rajasthan,historical|safari
+21,mandu,madhya,heritage
+22,orrcha,madhya,heritage|nature|pilgrimage
+23,ujjain,madhya,pilgrimage|art|heritage
+24,jabalpur,madhya,wildlife|nature
+25,bhopal ,madhya,heritage|nature|art|wildlife
+26,pachmari,madhya,nature|wildlife|pilgrimage|heritage
+27,kanha,madhya,nature|wildlife
+28,indore,madhya,heritage|art
+29,aizawl,mizoram,nature
+30,Champai,mizoram,nature
+31,Lunglei,mizoram,nature
+32,Serchhip,mizoram,nature
+33,Lawngtlai,mizoram,nature
+34,Mamit,mizoram,wildlife
+35,Saiha,mizoram,wildlife
+36,Kolasib,mizoram,nature
+37,Reiek,mizoram,nature|historic
+38,Shillong,meghalaya,nature|cultural
+39,Cherrapunji,meghalaya,nature
+40,Mawsynram,meghalaya,nature
+41,Tura,meghalaya,nature|cultural
+42,Siju Cave,meghalaya,wildlife
+43,Bhubaneswar,odisha,cultural|pilgrimage
+44,Puri,odisha,pilgrimage|beach
+45,Rayagada,odisha,cultural
+46,Konark,odisha,cultural|beach
+47,Cuttack,odisha,cultural|caves
+48,Gopalpur,odisha,nature|beach
+49,Berhampur,odisha,cultural
+50,Rourkela,odisha,cultural|nature

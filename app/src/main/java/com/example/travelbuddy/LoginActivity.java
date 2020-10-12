@@ -3,7 +3,9 @@ package com.example.travelbuddy;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -32,9 +34,19 @@ public class LoginActivity extends AppCompatActivity {
         user=auth.getCurrentUser();
         if(user!=null)
         {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            SharedPreferences sharedPreferences=getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor=sharedPreferences.edit();
+            if(!sharedPreferences.contains("selected"))
+            {
+                Intent intent = new Intent(LoginActivity.this, PreferencesActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            else {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
         }
         email=(EditText)findViewById(R.id.input_email);
         password=(EditText)findViewById(R.id.input_password);
@@ -62,9 +74,19 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.makeText(LoginActivity.this, "failed", Toast.LENGTH_LONG).show();
                                     }
                                 } else {
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                                    SharedPreferences sharedPreferences=getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor=sharedPreferences.edit();
+                                    if(!sharedPreferences.contains("selected"))
+                                    {
+                                        Intent intent = new Intent(LoginActivity.this, PreferencesActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                    else {
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
                                 }
                             }
                         });
