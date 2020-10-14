@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PreferencesActivity"></activity>
+        <activity android:name=".Recommendation"></activity>
+        <activity android:name=".PreferencesActivity" />
         <activity android:name=".Weather" />
         <activity android:name=".Near_by_places" />
         <activity android:name=".PastTripItem" />

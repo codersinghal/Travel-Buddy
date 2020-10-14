@@ -45,7 +45,7 @@ public class PrefAdapter extends ArrayAdapter<PrefrencesData> {
         TextView textView = (TextView) v.findViewById(R.id.pref_text);
         ImageView imageView = (ImageView) v.findViewById(R.id.pref_img);
         ImageView imageView1=v.findViewById(R.id.select);
-        textView.setText(list.get(position).getType());
+        textView.setText(list.get(position).getType().toUpperCase());
 
 
             if(position==0)

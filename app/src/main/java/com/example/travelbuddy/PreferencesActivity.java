@@ -20,7 +20,7 @@ public class PreferencesActivity extends AppCompatActivity {
     SharedPreferences sharedpref;
     SharedPreferences.Editor editor;
     PrefAdapter adapter;
-    String arr[]={"Adventure","Nature","Cultural","Beaches","Historical","Hills","Pilgrimage","Art"};
+    String arr[]={"adventure","nature","cultural","beaches","historical","hills","pilgrimage","art"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

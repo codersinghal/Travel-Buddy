@@ -298,6 +298,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     case R.id.uptrips:
                         Toast.makeText(MainActivity.this, "Upcoming Trips", Toast.LENGTH_SHORT).show();
                         break;
+                    case R.id.recommendations:
+                        Toast.makeText(MainActivity.this,"wait",Toast.LENGTH_SHORT).show();
+                        intent = new Intent(MainActivity.this, Recommendation.class);
+                        startActivity(intent);
+                        break;
                     case R.id.profile:
                         Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_SHORT).show();
                         intent = new Intent(MainActivity.this, ProfilePage.class);
