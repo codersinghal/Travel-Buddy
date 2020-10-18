@@ -41,7 +41,7 @@ public class Weather extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         progressBar = new ProgressDialog(this);
         progressBar.setCancelable(true);
-        progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressBar.show();
         setContentView(R.layout.activity_weather);
         lv=findViewById(R.id.weather_list);

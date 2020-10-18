@@ -6,6 +6,13 @@ public class Profile {
     Profile()
     {
     }
+
+    public Profile(String name, String email, String location) {
+        this.name = name;
+        this.email = email;
+        this.location = location;
+    }
+
     public String getName() {
         return name;
     }

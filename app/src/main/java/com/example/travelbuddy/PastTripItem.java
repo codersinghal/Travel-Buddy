@@ -246,7 +246,7 @@ public class PastTripItem extends AppCompatActivity {
 
     private void uploadImage(String this_item_uid) {
 
-        if (filePath != null) {
+        if (filePath != null&&filePath.size()!=0) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Saving...");
             progressDialog.show();

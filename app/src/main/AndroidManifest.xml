@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Recommendation"></activity>
+        <activity android:name=".UpcomingTripsItem"></activity>
+        <activity android:name=".UpcomingTripsActivity" />
+        <activity android:name=".Recommendation" />
         <activity android:name=".PreferencesActivity" />
         <activity android:name=".Weather" />
         <activity android:name=".Near_by_places" />
@@ -40,6 +42,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA8-oQYZeumcdc5sUtakMRJHW0YNAYxz78" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

@@ -177,11 +177,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             // and next place it, on bottom right (as Google Maps app)
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)
                     locationButton.getLayoutParams();
-            locationButton.setVisibility(View.GONE);
+
             // position on right bottom
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
             layoutParams.setMargins(0, 0, 30, 30);
+            locationButton.setVisibility(View.GONE);
             mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
                 @Override
                 public void onMyLocationChange(Location arg0) {
@@ -297,6 +298,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         break;
                     case R.id.uptrips:
                         Toast.makeText(MainActivity.this, "Upcoming Trips", Toast.LENGTH_SHORT).show();
+                        intent = new Intent(MainActivity.this, UpcomingTripsActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.recommendations:
                         Toast.makeText(MainActivity.this,"wait",Toast.LENGTH_SHORT).show();
