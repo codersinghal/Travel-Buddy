@@ -11,11 +11,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
 public class PreferencesActivity extends AppCompatActivity {
-    private GridView gv;
+    private ListView gv;
     public static final String MyPREFERENCES = "MyPrefs" ;
     SharedPreferences sharedpref;
     SharedPreferences.Editor editor;

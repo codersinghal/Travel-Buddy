@@ -3,6 +3,7 @@ package com.example.travelbuddy;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -28,6 +29,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import dmax.dialog.SpotsDialog;
+
 
 public class Weather extends AppCompatActivity {
 
@@ -35,14 +38,13 @@ public class Weather extends AppCompatActivity {
     private ListView lv;
     private TextView loc,currtemp,currdesc,currdate,min_max_temp;
     private ProgressDialog progressBar;
+    AlertDialog pb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        progressBar = new ProgressDialog(this);
-        progressBar.setCancelable(true);
-        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressBar.show();
+         pb= new SpotsDialog.Builder().setContext(this).build();
+        pb.show();
         setContentView(R.layout.activity_weather);
         lv=findViewById(R.id.weather_list);
         loc=findViewById(R.id.w_loc);
@@ -78,7 +80,7 @@ public class Weather extends AppCompatActivity {
                 parseData(result);
                 WeatherAdapter adapter=new WeatherAdapter(Weather.this,list);
                 lv.setAdapter(adapter);
-                progressBar.dismiss();
+                pb.dismiss();
             } catch (JSONException e) {
                 e.printStackTrace();
             }

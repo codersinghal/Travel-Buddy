@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import dmax.dialog.SpotsDialog;
+
 public class UpcomingTripsActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
@@ -32,11 +35,13 @@ public class UpcomingTripsActivity extends AppCompatActivity {
     private RecyclerView rv;
     private ArrayList<UpcomingTripsModel> trips_list;
     private UpcomingTripsAdapter mAdapter;
-
+    AlertDialog pb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upcoming_trips);
+        pb = new SpotsDialog.Builder().setContext(this).build();
+        pb.show();
         setFAB();
         auth= FirebaseAuth.getInstance();
         user=auth.getCurrentUser();
@@ -61,6 +66,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
                     mAdapter = new UpcomingTripsAdapter(UpcomingTripsActivity.this, trips_list,findViewById(R.id.relLayout2));
                     setUpRecyclerView();
                 }
+                pb.dismiss();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -84,6 +90,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
     }
     private void setUpRecyclerView() {
         rv.setAdapter(mAdapter);
+        pb.dismiss();
         rv.setLayoutManager(new LinearLayoutManager(this));
         //ItemTouchHelper itemTouchHelper = new
           //      ItemTouchHelper(new SwipeToDeleteCallback(mAdapter));

@@ -53,6 +53,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import dmax.dialog.SpotsDialog;
+
 import static java.security.AccessController.getContext;
 
 public class PastTripItem extends AppCompatActivity {
@@ -71,6 +73,7 @@ public class PastTripItem extends AppCompatActivity {
     private ValueEventListener valueListener;
     FirebaseStorage storage;
     StorageReference storageReference;
+    android.app.AlertDialog pb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +109,8 @@ public class PastTripItem extends AppCompatActivity {
         }
         if (obj!=null) {
 
+            pb = new SpotsDialog.Builder().setContext(this).build();
+            pb.show();
             auth = FirebaseAuth.getInstance();
             user = auth.getCurrentUser();
             mRef=FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("past_pics").child(ptm.getUid());
@@ -122,6 +127,7 @@ public class PastTripItem extends AppCompatActivity {
                         System.out.println("setting adapter");
                         adapter=new ImageAdapter(PastTripItem.this,send );
                         rv_img.setAdapter(adapter);
+                        pb.dismiss();
                     }
                 }
 

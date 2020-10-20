@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class UpcomingTripsModel implements Serializable {
     private String src,dest,budget;
-    private ArrayList<String> things_to_carry,places_to_visit;
+    private ArrayList<String> things_to_carry,places_to_visit,events_list;
     private String stdate,endate;
     private String uid;
 
@@ -13,12 +13,21 @@ public class UpcomingTripsModel implements Serializable {
 
     }
 
-    public UpcomingTripsModel(String src, String dest, String budget, ArrayList<String> things_to_carry, ArrayList<String> places_to_visit, String stdate, String endate, String uid) {
+    public ArrayList<String> getEvents_list() {
+        return events_list;
+    }
+
+    public void setEvents_list(ArrayList<String> events_list) {
+        this.events_list = events_list;
+    }
+
+    public UpcomingTripsModel(String src, String dest, String budget, ArrayList<String> things_to_carry, ArrayList<String> places_to_visit, String stdate, String endate, String uid, ArrayList<String> events_list) {
         this.src = src;
         this.dest = dest;
         this.budget = budget;
         this.things_to_carry = things_to_carry;
         this.places_to_visit = places_to_visit;
+        this.events_list=events_list;
         this.stdate = stdate;
         this.endate = endate;
         this.uid=uid;

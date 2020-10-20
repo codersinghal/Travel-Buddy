@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import dmax.dialog.SpotsDialog;
+
 public class PastTripsActivity extends AppCompatActivity {
 
     private RecyclerView rv;
@@ -32,11 +35,14 @@ public class PastTripsActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseUser user;
     private DatabaseReference mDatabase;
+    AlertDialog pb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_past_trips);
       //  getSupportActionBar().hide();
+        pb = new SpotsDialog.Builder().setContext(this).build();
+        pb.show();
         setFAB();
         auth=FirebaseAuth.getInstance();
         user=auth.getCurrentUser();
@@ -84,6 +90,7 @@ public class PastTripsActivity extends AppCompatActivity {
     }
     private void setUpRecyclerView() {
         rv.setAdapter(mAdapter);
+        pb.dismiss();
         rv.setLayoutManager(new LinearLayoutManager(this));
         ItemTouchHelper itemTouchHelper = new
                 ItemTouchHelper(new SwipeToDeleteCallback(mAdapter));
