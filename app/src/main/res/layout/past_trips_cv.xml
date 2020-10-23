@@ -3,16 +3,21 @@
     xmlns:app = "http://schemas.android.com/apk/res-auto"
     xmlns:tools = "http://schemas.android.com/tools"
     android:layout_width = "match_parent"
-    android:layout_height = "110dp"
+    android:layout_height = "190dp"
     android:id="@+id/card_view"
     app:cardElevation = "10dp"
     app:cardBackgroundColor="#FFFFFF"
-    android:layout_margin="10dp"
-    >
+    android:layout_margin="10dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
         android:orientation="horizontal"
+        android:id="@+id/past_ll"
         android:background="@drawable/gradient"
         >
         <ImageView
@@ -63,7 +68,22 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            >
 
-
-
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="8dp"
+                android:id="@+id/share_btn2"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_share_black_24dp"
+                ></ImageView>
+        </RelativeLayout>
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

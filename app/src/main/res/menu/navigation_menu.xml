@@ -21,6 +21,9 @@
     <item android:title="Other">
 
         <menu>
+            <item android:title="Change My Prefrences"
+                android:id="@+id/pref_chng"
+                android:icon="@drawable/logo"/>
             <item android:title="Profile"
                 android:id="@+id/profile"
                 android:icon="@drawable/proicon"/>

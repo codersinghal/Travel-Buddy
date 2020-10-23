@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
                                            int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case 1: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -304,6 +305,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     case R.id.recommendations:
                         Toast.makeText(MainActivity.this,"wait",Toast.LENGTH_SHORT).show();
                         intent = new Intent(MainActivity.this, Recommendation.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.pref_chng:
+                        intent=new Intent(MainActivity.this,PreferencesActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.profile:
