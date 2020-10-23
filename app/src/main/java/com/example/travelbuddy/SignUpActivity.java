@@ -32,6 +32,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        getSupportActionBar().hide();
         auth=FirebaseAuth.getInstance();
         name=findViewById(R.id.input_name);
         email=findViewById(R.id.input_email);
@@ -44,6 +45,22 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String emailid=email.getText().toString();
                 String pass=password.getText().toString();
+                String username=name.getText().toString();
+                if(emailid.isEmpty()||emailid==null)
+                {
+                    email.setError("Required");
+                    return ;
+                }
+                if(pass.isEmpty()||pass==null)
+                {
+                    password.setError("Required");
+                    return;
+                }
+                if(username.isEmpty()||username==null)
+                {
+                    name.setError("Required");
+                    return ;
+                }
                 auth.createUserWithEmailAndPassword(emailid, pass)
                         .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override

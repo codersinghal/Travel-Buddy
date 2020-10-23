@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         auth=FirebaseAuth.getInstance();
+        getSupportActionBar().hide();
         user=auth.getCurrentUser();
         if(user!=null)
         {
@@ -49,15 +50,26 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
         email=(EditText)findViewById(R.id.input_email);
-        password=(EditText)findViewById(R.id.input_password);
+        password=(EditText)findViewById(R.id.input_pass);
         _login=(Button) findViewById(R.id.btn_login);
         _signup=(TextView) findViewById(R.id.link_signup);
 
         _login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String emailid=email.getText().toString();
                 String pass=password.getText().toString();
+                if(pass.isEmpty()||pass==null)
+                {
+                    password.setError("Required");
+                    return;
+                }
+                if(emailid.isEmpty()||emailid==null)
+                {
+                    email.setError("Required");
+                    return;
+                }
                 auth.signInWithEmailAndPassword(emailid, pass)
                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
