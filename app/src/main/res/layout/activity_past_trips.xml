@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/sample"
-    tools:context=".PastTripsActivity">
+    tools:context=".trips.PastTripsActivity">
 <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/past_trips_rv"
     android:layout_width="match_parent"

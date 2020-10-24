@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white">
-    <com.example.travelbuddy.VerticalViewPager
+    <com.example.travelbuddy.recommendations.VerticalViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/vPager">
-    </com.example.travelbuddy.VerticalViewPager>
+    </com.example.travelbuddy.recommendations.VerticalViewPager>
 
 </RelativeLayout>

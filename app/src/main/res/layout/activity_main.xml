@@ -24,7 +24,7 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="com.example.travelbuddy.MainActivity">
+            tools:context="com.example.travelbuddy.home.MainActivity">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab"

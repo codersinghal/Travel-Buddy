@@ -8,5 +8,5 @@
     android:layout_marginTop="5dp"
     android:layout_margin="2dp"
     android:id="@+id/prefrence_gv"
-    tools:context=".PreferencesActivity">
+    tools:context=".recommendations.PreferencesActivity">
 </ListView>

@@ -13,11 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.travelbuddy.PastTripItem;
-import com.example.travelbuddy.PastTripsAdapter;
-import com.example.travelbuddy.PastTripsModel;
 import com.example.travelbuddy.R;
-import com.example.travelbuddy.UpcomingTripsItem;
+import com.example.travelbuddy.trips.UpcomingTripsItem;
 import com.example.travelbuddy.trips_model.UpcomingTripsModel;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
