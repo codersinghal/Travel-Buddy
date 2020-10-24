@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/sample"
-        android:paddingTop="28dp"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/sample"
+    android:paddingTop="28dp"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp">
 
-        <ImageView android:src="@drawable/newlogo"
-            android:layout_width="wrap_content"
-            android:layout_height="72dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="16dp"
-            android:layout_gravity="center_horizontal" />
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="72dp"
+        android:layout_marginBottom="24dp"
+        android:layout_gravity="center_horizontal"
+        app:lottie_rawRes="@raw/anim"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_enableMergePathsForKitKatAndAbove="true"
+        ></com.airbnb.lottie.LottieAnimationView>
 
         <!--  Name Label -->
     <androidx.cardview.widget.CardView

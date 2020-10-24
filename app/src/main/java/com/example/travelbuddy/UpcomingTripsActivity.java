@@ -42,6 +42,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_upcoming_trips);
         pb = new SpotsDialog.Builder().setContext(this).build();
         pb.show();
+        getSupportActionBar().hide();
         setFAB();
         auth= FirebaseAuth.getInstance();
         user=auth.getCurrentUser();

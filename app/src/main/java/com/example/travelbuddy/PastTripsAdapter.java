@@ -54,7 +54,7 @@ public class PastTripsAdapter extends RecyclerView.Adapter<PastTripsAdapter.MyVi
     private DatabaseReference mDatabase;
     final List<Target> targets = new ArrayList<Target>();
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView src_dest, date_vis;
+        public TextView src_dest;
         public CardView cv;
         public LinearLayout ll;
         public ImageView share_btn;
@@ -62,7 +62,6 @@ public class PastTripsAdapter extends RecyclerView.Adapter<PastTripsAdapter.MyVi
         public MyViewHolder(View view) {
             super(view);
             src_dest = (TextView) view.findViewById(R.id.src_dest);
-            date_vis = view.findViewById(R.id.date);
             cv = view.findViewById(R.id.card_view);
             ll=view.findViewById(R.id.past_ll);
             share_btn=view.findViewById(R.id.share_btn2);
@@ -86,7 +85,6 @@ public class PastTripsAdapter extends RecyclerView.Adapter<PastTripsAdapter.MyVi
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         final int pos=i;
         myViewHolder.src_dest.setText(list.get(i).getSrc() + " - " + list.get(i).getDest());
-        myViewHolder.date_vis.setText(list.get(i).getStdate() + " - " + list.get(i).getEndate());
         myViewHolder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

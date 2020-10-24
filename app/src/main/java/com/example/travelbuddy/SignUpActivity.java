@@ -71,7 +71,7 @@ public class SignUpActivity extends AppCompatActivity {
                                             Toast.LENGTH_SHORT).show();
                                 } else {
                                     FirebaseUser user=auth.getCurrentUser();
-                                    Profile pf=new Profile("abcd",emailid,"India");
+                                    Profile pf=new Profile("abcd",emailid,"India","","");
                                     DatabaseReference mref= FirebaseDatabase.getInstance().getReference().child(user.getUid()).child("profile");
                                     mref.setValue(pf);
                                     SharedPreferences sharedPreferences=getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);

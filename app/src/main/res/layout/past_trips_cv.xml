@@ -1,89 +1,69 @@
 <?xml version = "1.0" encoding = "utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android = "http://schemas.android.com/apk/res/android"
-    xmlns:app = "http://schemas.android.com/apk/res-auto"
-    xmlns:tools = "http://schemas.android.com/tools"
-    android:layout_width = "match_parent"
-    android:layout_height = "190dp"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
-    app:cardElevation = "10dp"
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+    android:layout_margin="10dp"
     app:cardBackgroundColor="#FFFFFF"
-    android:layout_margin="10dp">
+    app:cardCornerRadius="8dp"
+    app:cardElevation="10dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:orientation="horizontal"
-        android:id="@+id/past_ll"
-        android:background="@drawable/gradient"
-        >
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/midicon"
-            />
+        android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/past_ll"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginRight="10dp"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/src_dest"
-                android:text="Mathura - Allahabad"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="25dp"
-                android:textSize="20dp"
-                android:textColor="#000205"
-                ></TextView>
+            android:layout_height="100dp"
+            android:background="#FFFFFF"
+            android:orientation="horizontal">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="7dp"
+                app:lottie_autoPlay="true"
+                app:lottie_enableMergePathsForKitKatAndAbove="true"
+                app:lottie_rawRes="@raw/anim"></com.airbnb.lottie.LottieAnimationView>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="right"
-                >
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:src="@drawable/cal"
-                ></ImageView>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/date"
-            android:layout_gravity="bottom"
-            android:layout_margin="5dp"
-            android:text="03/2020 - 04/2020"
-            android:textSize="15dp"
-            android:textColor="#000205"
-            />
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/src_dest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="Mathura - Allahabad"
+                    android:textColor="#000205"
+                    android:textSize="20dp"></TextView>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white"
-            >
+            android:background="@drawable/bot_grad">
 
             <ImageView
+                android:id="@+id/share_btn2"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="8dp"
-                android:id="@+id/share_btn2"
-                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/ic_share_black_24dp"
-                ></ImageView>
+                android:layout_centerVertical="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="15dp"
+                android:foregroundTint="@color/closed"
+                android:src="@drawable/ic_share_black_24dp"></ImageView>
         </RelativeLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

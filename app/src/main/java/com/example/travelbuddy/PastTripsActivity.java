@@ -47,7 +47,7 @@ public class PastTripsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_past_trips);
-      //  getSupportActionBar().hide();
+       getSupportActionBar().hide();
         if(checkPermission()==false)
         {
             requestPermission();

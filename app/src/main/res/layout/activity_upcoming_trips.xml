@@ -5,7 +5,7 @@
     android:id="@+id/relLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@drawable/sample"
     tools:context=".UpcomingTripsActivity">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/up_trips_rv"

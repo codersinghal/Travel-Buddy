@@ -9,12 +9,17 @@
     android:paddingLeft="24dp"
     android:paddingRight="24dp">
 
-        <ImageView android:src="@drawable/newlogo"
-            android:layout_width="wrap_content"
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="100dp"
             android:layout_centerHorizontal="true"
             android:layout_height="72dp"
             android:layout_marginBottom="24dp"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            app:lottie_rawRes="@raw/anim"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_enableMergePathsForKitKatAndAbove="true"
+            ></com.airbnb.lottie.LottieAnimationView>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
