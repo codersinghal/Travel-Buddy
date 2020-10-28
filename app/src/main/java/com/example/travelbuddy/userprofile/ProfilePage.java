@@ -22,6 +22,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.andrognito.flashbar.Flashbar;
+import com.andrognito.flashbar.anim.FlashAnim;
 import com.example.travelbuddy.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -188,6 +190,21 @@ public class ProfilePage extends AppCompatActivity {
                 Profile obj=new Profile(name,em,loc,ppurl,bio.getText().toString());
                 mDatabase.setValue(obj);
             }
+            Flashbar fb=new Flashbar.Builder(this)
+                    .gravity(Flashbar.Gravity.TOP)
+                    .title("Updated Successfully")
+                    .backgroundColorRes(R.color.quantum_pink300).duration(1500)
+                    .enterAnimation(FlashAnim.with(this)
+                            .animateBar()
+                            .duration(750)
+                            .alpha()
+                            .overshoot())
+                    .exitAnimation(FlashAnim.with(this)
+                            .animateBar()
+                            .duration(400)
+                            .accelerateDecelerate())
+                    .build();
+            fb.show();
 
         }
         return super.onOptionsItemSelected(item);

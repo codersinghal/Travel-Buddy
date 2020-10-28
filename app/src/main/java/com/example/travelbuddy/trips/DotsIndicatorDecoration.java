@@ -60,7 +60,7 @@ public class DotsIndicatorDecoration extends RecyclerView.ItemDecoration {
         float indicatorStartX = (parent.getWidth() - indicatorTotalWidth) / 2f;
 
         // center vertically in the allotted space
-        float indicatorPosY = parent.getHeight() - indicatorHeight / 2f;
+        float indicatorPosY = parent.getHeight() - indicatorHeight / 0.25f;
 
         drawInactiveDots(c, indicatorStartX, indicatorPosY, itemCount);
 

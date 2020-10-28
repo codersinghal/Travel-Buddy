@@ -58,6 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/movie"
         android:layout_gravity="center_vertical"
         android:id="@+id/place_img"

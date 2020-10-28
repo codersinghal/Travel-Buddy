@@ -15,24 +15,36 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".home.SplashScreen">
+        <activity android:name=".home.SplashScreen"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".trips.UpcomingTripsItem" />
-        <activity android:name=".trips.UpcomingTripsActivity" />
-        <activity android:name=".recommendations.Recommendation" />
-        <activity android:name=".recommendations.PreferencesActivity" />
-        <activity android:name=".weather.Weather" />
-        <activity android:name=".home.Near_by_places" />
-        <activity android:name=".trips.PastTripItem" />
-        <activity android:name=".trips.PastTripsActivity" />
-        <activity android:name=".userprofile.ProfilePage" />
-        <activity android:name=".home.SignUpActivity" />
-        <activity android:name=".home.LoginActivity">
+        <activity android:name=".trips.UpcomingTripsItem"
+            android:screenOrientation="portrait" />
+        <activity android:name=".trips.UpcomingTripsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".recommendations.Recommendation"
+            android:screenOrientation="portrait" />
+        <activity android:name=".recommendations.PreferencesActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".weather.Weather"
+            android:screenOrientation="portrait" />
+        <activity android:name=".home.Near_by_places"
+            android:screenOrientation="portrait" />
+        <activity android:name=".trips.PastTripItem"
+            android:screenOrientation="portrait" />
+        <activity android:name=".trips.PastTripsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".userprofile.ProfilePage"
+            android:screenOrientation="portrait" />
+        <activity android:name=".home.SignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".home.LoginActivity"
+            android:screenOrientation="portrait" >
 
         </activity>
         <activity
@@ -40,7 +52,9 @@
             android:label="@string/title_activity_login" />
         <activity
             android:name=".home.MainActivity"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait" />
+        <receiver android:name=".notification.NotifiReceiver" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

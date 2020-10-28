@@ -15,6 +15,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.andrognito.flashbar.Flashbar;
+import com.andrognito.flashbar.anim.FlashAnim;
 import com.example.travelbuddy.Adapters.SimpleListAdapter;
 import com.example.travelbuddy.R;
 import com.example.travelbuddy.trips_model.UpcomingTripsModel;
@@ -207,8 +209,21 @@ public class UpcomingTripsItem extends AppCompatActivity {
                 UpcomingTripsModel new_obj=new UpcomingTripsModel(src.getText().toString(),dest.getText().toString(),budget.getText().toString(),things_to_carry,places_to_visit,"stdate","endate",utm.getUid(),events_list);
                 mDatabase.setValue(new_obj);
             }
-
-            finish();
+            Flashbar fb=new Flashbar.Builder(this)
+                    .gravity(Flashbar.Gravity.TOP)
+                    .title("Updated Successfully")
+                    .backgroundColorRes(R.color.quantum_pink300).duration(1500)
+                    .enterAnimation(FlashAnim.with(this)
+                            .animateBar()
+                            .duration(750)
+                            .alpha()
+                            .overshoot())
+                    .exitAnimation(FlashAnim.with(this)
+                            .animateBar()
+                            .duration(400)
+                            .accelerateDecelerate())
+                    .build();
+            fb.show();
         }
         return super.onOptionsItemSelected(item);
     }

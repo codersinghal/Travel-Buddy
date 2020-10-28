@@ -9,6 +9,8 @@ import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -31,6 +33,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.travelbuddy.notification.NotifiReceiver;
 import com.example.travelbuddy.trips.PastTripsActivity;
 import com.example.travelbuddy.userprofile.ProfilePage;
 import com.example.travelbuddy.R;
@@ -42,6 +45,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -66,6 +70,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -109,7 +114,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapview = mapFragment.getView();
         mapFragment.getMapAsync(this);
-
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 18);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        Intent intent1 = new Intent(MainActivity.this, NotifiReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0,intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager am = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
     }
 
@@ -202,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     main_ll.setVisibility(View.GONE);
                     latitude = latLng.latitude;
                     longitude = latLng.longitude;
-                    mMap.addMarker(new MarkerOptions().position(latLng).title("Destination"));
+                    mMap.addMarker(new MarkerOptions().position(latLng).title("Destination").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
                     origin="origin="+currlatitude+","+currlongitude;
                     destination="destination="+latitude+","+longitude;
                     String url = getDirectionsUrl(origin, destination);
@@ -221,6 +233,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if(latlang!=null) {
                     origin = "origin=" + currlatitude + "," + currlongitude;
                     destination = "destination=" + latlang.latitude + "," + latlang.longitude;
+                    mMap.clear();
+                    mMap.addMarker(new MarkerOptions().position(latlang).title("Destination").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
                     getRoute();
                 }
             }
@@ -269,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             latitude = address.getLatitude();
             longitude = address.getLongitude();
             mMap.clear();
-            mMap.addMarker(new MarkerOptions().position(latLng).title(location));
+            mMap.addMarker(new MarkerOptions().position(latLng).title(location).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
             mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
             Toast.makeText(getApplicationContext(), address.getLatitude() + " " + address.getLongitude(), Toast.LENGTH_LONG).show();
         }

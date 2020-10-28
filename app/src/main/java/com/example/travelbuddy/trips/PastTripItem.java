@@ -26,8 +26,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.andrognito.flashbar.Flashbar;
+import com.andrognito.flashbar.anim.FlashAnim;
 import com.example.travelbuddy.Adapters.ImageAdapter;
 import com.example.travelbuddy.R;
 import com.example.travelbuddy.trips_model.PastTripsModel;
@@ -68,7 +71,8 @@ public class PastTripItem extends AppCompatActivity {
     Calendar mycalendar;
     int flag = 0;
     final int PICK_IMAGE_REQUEST = 71;
-    private EditText src_dest, stdate, endate, review, expenditure;
+    private EditText src,dest,review,expenditure;
+    private TextView stdate,endate;
     private ArrayList<Uri> filePath;
     private ValueEventListener valueListener;
     FirebaseStorage storage;
@@ -78,7 +82,8 @@ public class PastTripItem extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_past_trip_item);
-        src_dest=findViewById(R.id.src_to_dest);
+        src=findViewById(R.id.past_src);
+        dest=findViewById(R.id.past_dest);
         stdate = findViewById(R.id.stdate);
         endate = findViewById(R.id.endate);
         review = findViewById(R.id.review);
@@ -100,9 +105,10 @@ public class PastTripItem extends AppCompatActivity {
             obj = intent.getSerializableExtra("data");
         if (obj != null) {
             ptm = (PastTripsModel) obj;
-            src_dest.setText(ptm.getSrc()+" To "+ptm.getDest());
-            stdate.setText(ptm.getStdate());
-            endate.setText(ptm.getEndate());
+            src.setText(ptm.getSrc());
+            dest.setText(ptm.getDest());
+            stdate.setText("Start Date "+ptm.getStdate());
+            endate.setText("End Date "+ptm.getEndate());
             review.setText(ptm.getReview());
             expenditure.setText(ptm.getExpenditure());
 
@@ -160,8 +166,7 @@ public class PastTripItem extends AppCompatActivity {
             auth = FirebaseAuth.getInstance();
             user = auth.getCurrentUser();
             mDatabase = FirebaseDatabase.getInstance().getReference().child(user.getUid()).child("past_trips");
-            String srcs[]=(src_dest.getText()).toString().split(" To ",-2);
-            PastTripsModel addobj = new PastTripsModel(srcs[0].trim(), srcs[1].trim(), review.getText().toString(), stdate.getText().toString(), endate.getText().toString(), expenditure.getText().toString());
+            PastTripsModel addobj = new PastTripsModel(src.getText().toString(), dest.getText().toString(), review.getText().toString(), stdate.getText().toString(), endate.getText().toString(), expenditure.getText().toString());
             if (obj == null) {
                 String this_item_uid = mDatabase.push().getKey();
                 addobj.setUID(this_item_uid);
@@ -177,6 +182,21 @@ public class PastTripItem extends AppCompatActivity {
                 addobj.setUID(ptm.getUid());
                 mDatabase.child(ptm.getUid()).setValue(addobj);
             }
+            Flashbar fb=new Flashbar.Builder(this)
+                    .gravity(Flashbar.Gravity.TOP)
+                    .title("Updated Successfully")
+                    .backgroundColorRes(R.color.quantum_pink300).duration(1500)
+                    .enterAnimation(FlashAnim.with(this)
+                            .animateBar()
+                            .duration(750)
+                            .alpha()
+                            .overshoot())
+                    .exitAnimation(FlashAnim.with(this)
+                            .animateBar()
+                            .duration(400)
+                            .accelerateDecelerate())
+                    .build();
+            fb.show();
         }
         if (id == R.id.addimg) {
             if(checkPermissionREAD_EXTERNAL_STORAGE(this))
@@ -229,9 +249,9 @@ public class PastTripItem extends AppCompatActivity {
         String myFormat = "MM/dd/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         if (flag == 1)
-            stdate.setText(sdf.format(mycalendar.getTime()));
+            stdate.setText("Start Date "+sdf.format(mycalendar.getTime()));
         else
-            endate.setText(sdf.format(mycalendar.getTime()));
+            endate.setText("End Date "+sdf.format(mycalendar.getTime()));
     }
 
     private void chooseImage() {

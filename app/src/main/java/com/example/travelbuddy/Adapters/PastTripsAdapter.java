@@ -2,11 +2,6 @@ package com.example.travelbuddy.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,23 +13,16 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.travelbuddy.trips.PastTripItem;
 import com.example.travelbuddy.R;
+import com.example.travelbuddy.trips.PastTripItem;
 import com.example.travelbuddy.trips_model.PastTripsModel;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,72 +87,14 @@ public class PastTripsAdapter extends RecyclerView.Adapter<PastTripsAdapter.MyVi
     }
 
     private void share(PastTripsModel pastTripsModel) {
-        auth=FirebaseAuth.getInstance();
-        user=auth.getCurrentUser();
-        mDatabase=FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("past_pics").child(pastTripsModel.getUid());
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-
-                      ArrayList<Uri> imageuris=new ArrayList<>();
-                      int cnt= (int) dataSnapshot.getChildrenCount();
-                      System.out.println("count is "+cnt);
-                      int i=0;
-                    for (DataSnapshot npsnapshot : dataSnapshot.getChildren()) {
-                        String l = npsnapshot.getValue(String.class);
-                        System.out.println(l);
-                        Target target=new Target() {
-                            @Override public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                                Bitmap bmp = bitmap;
-                                String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bmp, "SomeText", null);
-                                imageuris.add(Uri.parse(path));
-                                targets.remove(this);
-                            }
-                            @Override public void onBitmapFailed(Drawable errorDrawable) {
-                                System.out.println(errorDrawable);
-                                System.out.println("error1");
-                                targets.remove(this);
-                            }
-                            @Override public void onPrepareLoad(Drawable placeHolderDrawable) {
-                                System.out.println(placeHolderDrawable);
-                                System.out.println("error2");
-                            }
-                        };
-                        targets.add(target);
-                        Picasso.with(context).load(l).into(target);
-
-                    }
-                    System.out.println(imageuris);
-                    Intent shareIntent = new Intent();
-                    shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
-                    shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageuris);
-                    shareIntent.setType("image/*");
-                    context.startActivity(Intent.createChooser(shareIntent, "Share images to.."));
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        String send="Source - "+pastTripsModel.getSrc()+"\n"+"Destination - "+pastTripsModel.getDest()+"\n"+"Expenditure - "+pastTripsModel.getExpenditure()+"\n"+"Starting Date - "+pastTripsModel.getStdate()+"\n"+"End Date - "+pastTripsModel.getEndate()+"\n"
+                +"Reviews - "+pastTripsModel.getReview()+"\n";
+        sendIntent.putExtra(Intent.EXTRA_TEXT,send);
+        sendIntent.putExtra(Intent.EXTRA_TITLE,"Past Trip");
+        sendIntent.setType("text/plain");
+        context.startActivity(Intent.createChooser(sendIntent, "Share Via"));
     }
-    public Uri getLocalBitmapUri(Bitmap bmp) {
-        Uri bmpUri = null;
-        try {
-            File file =  new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_" + System.currentTimeMillis() + ".png");
-            FileOutputStream out = new FileOutputStream(file);
-            bmp.compress(Bitmap.CompressFormat.PNG, 90, out);
-            out.close();
-            bmpUri = Uri.fromFile(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return bmpUri;
-    }
-
     public int getItemCount() {
         return list.size();
     }
