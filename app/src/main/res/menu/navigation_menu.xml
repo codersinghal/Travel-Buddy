@@ -6,15 +6,15 @@
         <menu>
         <item android:id="@+id/pasttrips"
             android:title="Past Trips"
-            android:icon="@drawable/logo"/>
+            android:icon="@drawable/past"/>
 
         <item android:id="@+id/uptrips"
             android:title="Upcoming Trips"
-            android:icon="@drawable/logo"/>
+            android:icon="@drawable/rightarrow"/>
 
             <item android:id="@+id/recommendations"
                 android:title="Recommendations"
-                android:icon="@drawable/logo"/>
+                android:icon="@drawable/like"/>
         </menu>
 
 </item>
@@ -23,7 +23,7 @@
         <menu>
             <item android:title="Change My Prefrences"
                 android:id="@+id/pref_chng"
-                android:icon="@drawable/logo"/>
+                android:icon="@drawable/configuration"/>
             <item android:title="Profile"
                 android:id="@+id/profile"
                 android:icon="@drawable/proicon"/>

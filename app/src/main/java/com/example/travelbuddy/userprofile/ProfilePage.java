@@ -43,6 +43,8 @@ import com.squareup.picasso.Picasso;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import dmax.dialog.SpotsDialog;
+
 
 public class ProfilePage extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 71;
@@ -61,6 +63,7 @@ public class ProfilePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
+        setTitle("Profile");
       //  getSupportActionBar().hide();
         username=findViewById(R.id.name);
         bio=findViewById(R.id.bio);

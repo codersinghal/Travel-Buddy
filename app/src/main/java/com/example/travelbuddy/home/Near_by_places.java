@@ -40,6 +40,7 @@ public class Near_by_places extends AppCompatActivity {
         rv.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayout.VERTICAL));
         Intent intent=getIntent();
         PlacesIntentData dataobj= (PlacesIntentData) intent.getSerializableExtra("data");
+        setTitle(dataobj.getPlace_type().toUpperCase());
         getPlaces(dataobj);
 
     }

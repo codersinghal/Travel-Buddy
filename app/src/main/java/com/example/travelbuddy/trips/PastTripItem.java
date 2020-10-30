@@ -107,8 +107,8 @@ public class PastTripItem extends AppCompatActivity {
             ptm = (PastTripsModel) obj;
             src.setText(ptm.getSrc());
             dest.setText(ptm.getDest());
-            stdate.setText("Start Date "+ptm.getStdate());
-            endate.setText("End Date "+ptm.getEndate());
+            stdate.setText("St Date "+ptm.getStdate());
+            endate.setText("En Date "+ptm.getEndate());
             review.setText(ptm.getReview());
             expenditure.setText(ptm.getExpenditure());
 
@@ -135,6 +135,8 @@ public class PastTripItem extends AppCompatActivity {
                         rv_img.setAdapter(adapter);
                         pb.dismiss();
                     }
+                    else
+                        pb.dismiss();
                 }
 
                 @Override
@@ -249,9 +251,9 @@ public class PastTripItem extends AppCompatActivity {
         String myFormat = "MM/dd/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         if (flag == 1)
-            stdate.setText("Start Date "+sdf.format(mycalendar.getTime()));
+            stdate.setText("St Date "+sdf.format(mycalendar.getTime()));
         else
-            endate.setText("End Date "+sdf.format(mycalendar.getTime()));
+            endate.setText("En Date "+sdf.format(mycalendar.getTime()));
     }
 
     private void chooseImage() {

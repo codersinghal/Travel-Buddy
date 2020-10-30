@@ -1,15 +1,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/mybutton"
-        android:title=""
-        app:showAsAction="always"
-        android:icon="@drawable/logo"
-        />
-    <item
         android:id="@+id/addimg"
         android:title=""
         app:showAsAction="always"
-        android:icon="@drawable/ic_add_black_24dp"
+        android:icon="@drawable/addimage"
         ></item>
+    <item
+        android:id="@+id/mybutton"
+        android:title=""
+        app:showAsAction="always"
+        android:icon="@drawable/checked"
+        />
 </menu>

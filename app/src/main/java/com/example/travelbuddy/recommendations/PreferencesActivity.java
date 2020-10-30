@@ -10,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import com.andrognito.flashbar.Flashbar;
+import com.andrognito.flashbar.anim.FlashAnim;
 import com.example.travelbuddy.home.MainActivity;
 import com.example.travelbuddy.R;
 
@@ -26,6 +28,7 @@ public class PreferencesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
+        setTitle("Prefrences");
         gv=findViewById(R.id.prefrence_gv);
          sharedpref=getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
          editor = sharedpref.edit();
@@ -60,6 +63,21 @@ public class PreferencesActivity extends AppCompatActivity {
             }
             editor.putBoolean("selected",true);
             editor.commit();
+            Flashbar fb=new Flashbar.Builder(this)
+                    .gravity(Flashbar.Gravity.TOP)
+                    .title("Updated Successfully")
+                    .backgroundColorRes(R.color.quantum_pink300).duration(1500)
+                    .enterAnimation(FlashAnim.with(this)
+                            .animateBar()
+                            .duration(750)
+                            .alpha()
+                            .overshoot())
+                    .exitAnimation(FlashAnim.with(this)
+                            .animateBar()
+                            .duration(400)
+                            .accelerateDecelerate())
+                    .build();
+            fb.show();
             Intent intent = new Intent(PreferencesActivity.this, MainActivity.class);
             startActivity(intent);
             finish();

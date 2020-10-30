@@ -3,6 +3,7 @@ package com.example.travelbuddy.trips;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -93,8 +94,8 @@ public class UpcomingTripsActivity extends AppCompatActivity {
         rv.setAdapter(mAdapter);
         pb.dismiss();
         rv.setLayoutManager(new LinearLayoutManager(this));
-        //ItemTouchHelper itemTouchHelper = new
-          //      ItemTouchHelper(new SwipeToDeleteCallback(mAdapter));
-        //itemTouchHelper.attachToRecyclerView(rv);
+        ItemTouchHelper itemTouchHelper = new
+                ItemTouchHelper(new SwipeToDelete(mAdapter));
+        itemTouchHelper.attachToRecyclerView(rv);
     }
 }

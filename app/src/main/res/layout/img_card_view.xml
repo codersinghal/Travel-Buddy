@@ -6,10 +6,24 @@
     android:id="@+id/img_card_view"
     android:layout_margin="5dp"
     android:layout_height="300dp">
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+      >
    <ImageView
        android:layout_width="match_parent"
        android:layout_height="match_parent"
        android:id="@+id/img_cv"
        android:src="@drawable/profile"
        ></ImageView>
+      <com.google.android.material.floatingactionbutton.FloatingActionButton
+          android:layout_width="64dp"
+          android:layout_height="64dp"
+          android:src="@drawable/ic_share_black_24dp"
+         android:layout_alignParentBottom="true"
+         android:layout_alignParentRight="true"
+          android:layout_margin="8dp"
+          android:id="@+id/share_fab"
+         ></com.google.android.material.floatingactionbutton.FloatingActionButton>
+   </RelativeLayout>
 </androidx.cardview.widget.CardView>
