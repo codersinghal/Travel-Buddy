@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// read csv file containing data
 public class CSVFile {
     InputStream inputStream;
     Map<String, List<RecommendationData>> myMaps = new HashMap<String, List<RecommendationData>>();

@@ -103,7 +103,7 @@ public class PastTripsAdapter extends RecyclerView.Adapter<PastTripsAdapter.MyVi
         mRecentlyDeletedItem = list.get(position);
         auth=FirebaseAuth.getInstance();
         user=auth.getCurrentUser();
-        mDatabase= FirebaseDatabase.getInstance().getReference().child(user.getUid()).child("past_trips").child(mRecentlyDeletedItem.getUid());
+        mDatabase= FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("past_trips").child(mRecentlyDeletedItem.getUid());
         mRecentlyDeletedItemPosition = position;
         list.remove(position);
         mDatabase.getRef().removeValue();
@@ -125,7 +125,7 @@ public class PastTripsAdapter extends RecyclerView.Adapter<PastTripsAdapter.MyVi
 
     private void undoDelete() {
 
-        mDatabase= FirebaseDatabase.getInstance().getReference().child(user.getUid()).child("past_trips");
+        mDatabase= FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("past_trips");
         mDatabase.child(mRecentlyDeletedItem.getUid()).setValue(mRecentlyDeletedItem);
         list.add(mRecentlyDeletedItemPosition,
                 mRecentlyDeletedItem);

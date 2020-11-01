@@ -63,6 +63,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
               }
           });
     }
+
+    // uri for sharing image
     public Uri getLocalBitmapUri(ImageView imageView,int position) {
         // Extract Bitmap from ImageView drawable
         Drawable drawable = imageView.getDrawable();

@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+// new user registration
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText name,email,password;
@@ -74,8 +75,8 @@ public class SignUpActivity extends AppCompatActivity {
                                             Toast.LENGTH_SHORT).show();
                                 } else {
                                     FirebaseUser user=auth.getCurrentUser();
-                                    Profile pf=new Profile("abcd",emailid,"India","","");
-                                    DatabaseReference mref= FirebaseDatabase.getInstance().getReference().child(user.getUid()).child("profile");
+                                    Profile pf=new Profile(username,emailid,"India","","");
+                                    DatabaseReference mref= FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("profile");
                                     mref.setValue(pf);
                                     SharedPreferences sharedPreferences=getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor=sharedPreferences.edit();

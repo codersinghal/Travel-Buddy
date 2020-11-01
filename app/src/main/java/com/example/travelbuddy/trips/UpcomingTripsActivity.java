@@ -48,7 +48,7 @@ public class UpcomingTripsActivity extends AppCompatActivity {
         auth= FirebaseAuth.getInstance();
         user=auth.getCurrentUser();
         String uid=user.getUid();
-        mDatabase= FirebaseDatabase.getInstance().getReference().child(uid).child("upcoming_trips");
+        mDatabase= FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("upcoming_trips");
         rv=findViewById(R.id.up_trips_rv);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         rv.setLayoutManager(mLayoutManager);

@@ -119,7 +119,7 @@ public class PastTripItem extends AppCompatActivity {
             pb.show();
             auth = FirebaseAuth.getInstance();
             user = auth.getCurrentUser();
-            mRef=FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("past_pics").child(ptm.getUid());
+            mRef=FirebaseDatabase.getInstance().getReference().child("users_pics").child(user.getUid()).child("past_pics").child(ptm.getUid());
             valueListener=mRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -167,17 +167,17 @@ public class PastTripItem extends AppCompatActivity {
         if (id == R.id.mybutton) {
             auth = FirebaseAuth.getInstance();
             user = auth.getCurrentUser();
-            mDatabase = FirebaseDatabase.getInstance().getReference().child(user.getUid()).child("past_trips");
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("past_trips");
             PastTripsModel addobj = new PastTripsModel(src.getText().toString(), dest.getText().toString(), review.getText().toString(), stdate.getText().toString(), endate.getText().toString(), expenditure.getText().toString());
             if (obj == null) {
                 String this_item_uid = mDatabase.push().getKey();
                 addobj.setUID(this_item_uid);
                 mDatabase.child(this_item_uid).setValue(addobj);
-                mRef=FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("past_pics").child(this_item_uid);
+                mRef=FirebaseDatabase.getInstance().getReference().child("users_pics").child(user.getUid()).child("past_pics").child(this_item_uid);
                 uploadImage(this_item_uid);
             } else {
                 String this_item_uid = ptm.getUid();
-                mRef=FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("past_pics").child(ptm.getUid());
+                mRef=FirebaseDatabase.getInstance().getReference().child("users_pics").child(user.getUid()).child("past_pics").child(ptm.getUid());
                 if(valueListener!=null)
                     mRef.removeEventListener(valueListener);
                 uploadImage(this_item_uid);
@@ -282,7 +282,7 @@ public class PastTripItem extends AppCompatActivity {
             storageReference = storage.getReference();
             auth = FirebaseAuth.getInstance();
             user = auth.getCurrentUser();
-            mRef=FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("past_pics").child(this_item_uid);
+            mRef=FirebaseDatabase.getInstance().getReference().child("users_pics").child(user.getUid()).child("past_pics").child(this_item_uid);
             StorageReference ref;
             for (Uri url : filePath) {
                 File file=new File(SiliCompressor.with(this).compress(FileUtils.getPath(this,url),new File(this.getCacheDir(),"temp")));
@@ -334,16 +334,6 @@ public class PastTripItem extends AppCompatActivity {
 
     }
 
-//    private Uri compressFile(Uri url) {
-//        if(url!=null)
-//        {
-//            System.out.println(url);
-//            File file=new File(SiliCompressor.with(this).compress(FileUtils.getPath(this,url),new File(this.getCacheDir(),"temp")));
-//            Uri uri=Uri.fromFile(file);
-//            return uri;
-//        }
-//        return null;
-//    }
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
 
     public boolean checkPermissionREAD_EXTERNAL_STORAGE(

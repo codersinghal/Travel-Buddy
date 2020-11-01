@@ -116,7 +116,7 @@ public class UpcomingTripsAdapter extends RecyclerView.Adapter<com.example.trave
         mRecentlyDeletedItem = list.get(position);
         auth=FirebaseAuth.getInstance();
         user=auth.getCurrentUser();
-        mDatabase= FirebaseDatabase.getInstance().getReference().child(user.getUid()).child("upcoming_trips").child(mRecentlyDeletedItem.getUid());
+        mDatabase= FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("upcoming_trips").child(mRecentlyDeletedItem.getUid());
         mRecentlyDeletedItemPosition = position;
         list.remove(position);
         mDatabase.getRef().removeValue();
@@ -138,7 +138,7 @@ public class UpcomingTripsAdapter extends RecyclerView.Adapter<com.example.trave
 
     private void undoDelete() {
 
-        mDatabase= FirebaseDatabase.getInstance().getReference().child(user.getUid()).child("upcoming_trips");
+        mDatabase= FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("upcoming_trips");
         mDatabase.child(mRecentlyDeletedItem.getUid()).setValue(mRecentlyDeletedItem);
         list.add(mRecentlyDeletedItemPosition,
                 mRecentlyDeletedItem);

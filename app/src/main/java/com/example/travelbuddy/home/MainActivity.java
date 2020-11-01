@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapview = mapFragment.getView();
         mapFragment.getMapAsync(this);
+        // notification setup
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 18);
         calendar.set(Calendar.MINUTE, 0);
@@ -125,15 +126,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
-
+    // location button setup
     private void fab_setUp() {
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mMap != null) {
-                    if (locationButton != null)
+                    if (locationButton != null) {
                         locationButton.callOnClick();
+                        locationButton.setVisibility(View.GONE);
+                    }
                     mMap.clear();
                     main_ll.setVisibility((View.GONE));
                     latitude = currlatitude;
@@ -142,6 +145,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
     }
+
 
     private void initPlaces() {
         if (!Places.isInitialized()) {
@@ -152,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         PlacesClient placesClient = Places.createClient(this);
     }
 
+    // request location permissions
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
                                            int[] grantResults) {
@@ -188,14 +193,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (mMap != null) {
             locationButton = ((View) mapview.findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
             // and next place it, on bottom right (as Google Maps app)
+            locationButton.setVisibility(View.GONE);
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)
                     locationButton.getLayoutParams();
 
             // position on right bottom
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-            layoutParams.setMargins(0, 0, 30, 30);
-            locationButton.setVisibility(View.GONE);
+            layoutParams.setMargins(0, 0, 40, 40);
+
             mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
                 @Override
                 public void onMyLocationChange(Location arg0) {
@@ -266,6 +272,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    // search bar
     public void searchLocation(String location) {
 
         List<Address> addressList = null;
@@ -336,9 +343,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         intent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(intent);
                         finish();
-                        break;
-                    case R.id.about:
-                        Toast.makeText(MainActivity.this, "About", Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         return true;

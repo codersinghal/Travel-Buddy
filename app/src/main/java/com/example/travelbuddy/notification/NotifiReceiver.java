@@ -27,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.EventListener;
 
+// get notifications for upcoming events
 public class NotifiReceiver extends BroadcastReceiver {
 
     private static  int MID =1 ;
@@ -39,7 +40,7 @@ public class NotifiReceiver extends BroadcastReceiver {
         FirebaseAuth auth=FirebaseAuth.getInstance();
         FirebaseUser user=auth.getCurrentUser();
         System.out.println(user.getUid());
-        DatabaseReference mref=FirebaseDatabase.getInstance().getReference().child(user.getUid()).child("upcoming_trips");
+        DatabaseReference mref=FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("upcoming_trips");
         Query newQuery = mref;
         newQuery.addChildEventListener(new ChildEventListener() {
             @Override

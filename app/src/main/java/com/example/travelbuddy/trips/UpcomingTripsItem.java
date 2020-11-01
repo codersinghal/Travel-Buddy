@@ -195,7 +195,7 @@ public class UpcomingTripsItem extends AppCompatActivity {
             }
             auth=FirebaseAuth.getInstance();
             user=auth.getCurrentUser();
-            mDatabase=FirebaseDatabase.getInstance().getReference().child(user.getUid()).child("upcoming_trips");
+            mDatabase=FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("upcoming_trips");
             if(obj==null)
             {
                 String key=mDatabase.push().getKey();

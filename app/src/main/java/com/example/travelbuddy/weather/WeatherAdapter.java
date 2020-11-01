@@ -35,7 +35,7 @@ public class WeatherAdapter extends ArrayAdapter<WeatherModel> {
         ImageView img=rowView.findViewById(R.id.weather_icon);
 
         date.setText(objects.get(position).getDate());
-        temp.setText(objects.get(position).getTemp());
+        temp.setText(objects.get(position).getTemp()+"\u2103");
         Context c = img.getContext();
         int id = context.getResources().getIdentifier(objects.get(position).getWeather_icon(), "drawable", c.getPackageName());
         img.setImageResource(id);

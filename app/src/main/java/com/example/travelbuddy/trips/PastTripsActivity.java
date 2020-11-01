@@ -58,7 +58,7 @@ public class PastTripsActivity extends AppCompatActivity {
         auth=FirebaseAuth.getInstance();
         user=auth.getCurrentUser();
         String uid=user.getUid();
-        mDatabase= FirebaseDatabase.getInstance().getReference().child(uid).child("past_trips");
+        mDatabase= FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("past_trips");
         rv=findViewById(R.id.past_trips_rv);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         rv.setLayoutManager(mLayoutManager);
@@ -78,6 +78,9 @@ public class PastTripsActivity extends AppCompatActivity {
                     mAdapter = new PastTripsAdapter(PastTripsActivity.this, trips_list,findViewById(R.id.relLayout1));
                     setUpRecyclerView();
                 }
+                else
+                    pb.dismiss();
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

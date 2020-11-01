@@ -73,7 +73,7 @@ public class ProfilePage extends AppCompatActivity {
         auth=FirebaseAuth.getInstance();
         user=auth.getCurrentUser();
         uid=user.getUid();
-        mDatabase= FirebaseDatabase.getInstance().getReference().child(uid).child("profile");
+        mDatabase= FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("profile");
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

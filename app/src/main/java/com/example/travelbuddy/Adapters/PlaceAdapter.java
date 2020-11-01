@@ -23,6 +23,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+// adapter for place details
 public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder> {
     ArrayList<PlacesFinalContent> data = new ArrayList<>();
     Context c;

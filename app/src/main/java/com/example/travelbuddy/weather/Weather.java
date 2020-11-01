@@ -92,7 +92,7 @@ public class Weather extends AppCompatActivity {
         {
             JSONObject each_obj=data.getJSONObject(i);
             String date=each_obj.getString("datetime");
-            String temp=each_obj.getDouble("min_temp")+"  "+each_obj.getDouble("max_temp");
+            String temp=each_obj.getDouble("min_temp")+"\u2103"+"  "+each_obj.getDouble("max_temp");
             String desc=each_obj.getJSONObject("weather").getString("description");
             String weather_icon=each_obj.getJSONObject("weather").getString("icon");
             WeatherModel wm=new WeatherModel(date,temp,desc,weather_icon);
@@ -100,10 +100,10 @@ public class Weather extends AppCompatActivity {
             list.add(wm);
             else{
                 currdate.setText("Today");
-                min_max_temp.setText(temp);
+                min_max_temp.setText(temp+"\u2103");
                 currdesc.setText(desc);
                 String today_temp=each_obj.getString("temp");
-                currtemp.setText(today_temp);
+                currtemp.setText(today_temp+"\u2103");
                 loc.setText(myobj.getString("city_name"));
             }
         }

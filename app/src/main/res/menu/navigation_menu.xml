@@ -28,10 +28,6 @@
                 android:id="@+id/profile"
                 android:icon="@drawable/proicon"/>
 
-            <item android:title="About"
-                android:id="@+id/about"
-                android:icon="@drawable/about" />
-
             <item android:title="Sign Out"
                 android:id="@+id/signout"
                 android:icon="@drawable/signout"/>
